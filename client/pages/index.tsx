@@ -1,32 +1,38 @@
 import type { NextPage } from "next";
-import {useState, Fragment, ChangeEvent, useEffect} from "react";
+import { useState, useEffect, Fragment } from "react";
 
-import type { UserApiResponse } from "./api/user";
-import {User} from "../codegen/protos/user_pb";
+import { User } from "../codegen/protos/user_pb";
+import { GetUsersResponse } from "./api/users";
 
 const App: NextPage = () => {
-  const [user, setUser] = useState<User.AsObject>();
+  const [ users, setUsers ] = useState<User.AsObject[]>([]);
 
-  const getUsers = async () => {
-    const res = await fetch("/api/user", {
-      method: "POST",
-      body: JSON.stringify({ id: 1 }),
-    });
-
-    const { user } = await res.json();
-    setUser(user)
+  const getUsers = async (): Promise<void> => {
+    try {
+      const res = await fetch("/api/users");
+      const json: GetUsersResponse = await res.json();
+      if (json.ok) {
+        setUsers(json.users)
+      }
+    } catch (error: unknown) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
     getUsers()
-  })
+  }, [])
 
   return (
-    <>
-      <p>{user?.id}</p>
-      <p>{user?.name}</p>
-      <p>{user?.isAdmin ? "admin" : "normal"}</p>
-    </>
+    <div>
+      {users?.map((user) => (
+        <Fragment key={user.id}>
+          <p>{user.name}</p>
+          <p>{user.isAdmin}</p>
+          <p>--------------------</p>
+        </Fragment>
+      ))}
+    </div>
   );
 };
 
