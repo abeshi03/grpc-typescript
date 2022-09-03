@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "ts-node-dev src/index.ts"
+  },
   "dependencies": {
     "@grpc/grpc-js": "^1.6.10",
     "google-protobuf": "^3.21.0"

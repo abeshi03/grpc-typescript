@@ -1,7 +1,8 @@
 syntax = "proto3";
 
 service UserManager {
-  rpc get (UserRequest) returns (UserResponse) {}
+  rpc GetUsers (UsersRequest) returns (UsersResponse) {}
+  rpc GetUser (UserRequest) returns (UserResponse) {}
 }
 
 message User {
@@ -9,6 +10,12 @@ message User {
   string name = 2;
   bool is_admin = 3;
 }
+
+message UsersResponse {
+  repeated User users = 1;
+}
+
+message UsersRequest{}
 
 message UserRequest {
   uint32 id = 1;

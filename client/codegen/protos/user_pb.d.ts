@@ -32,6 +32,45 @@ export namespace User {
     }
 }
 
+export class UsersResponse extends jspb.Message { 
+    clearUsersList(): void;
+    getUsersList(): Array<User>;
+    setUsersList(value: Array<User>): UsersResponse;
+    addUsers(value?: User, index?: number): User;
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): UsersResponse.AsObject;
+    static toObject(includeInstance: boolean, msg: UsersResponse): UsersResponse.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: UsersResponse, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): UsersResponse;
+    static deserializeBinaryFromReader(message: UsersResponse, reader: jspb.BinaryReader): UsersResponse;
+}
+
+export namespace UsersResponse {
+    export type AsObject = {
+        usersList: Array<User.AsObject>,
+    }
+}
+
+export class UsersRequest extends jspb.Message { 
+
+    serializeBinary(): Uint8Array;
+    toObject(includeInstance?: boolean): UsersRequest.AsObject;
+    static toObject(includeInstance: boolean, msg: UsersRequest): UsersRequest.AsObject;
+    static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+    static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+    static serializeBinaryToWriter(message: UsersRequest, writer: jspb.BinaryWriter): void;
+    static deserializeBinary(bytes: Uint8Array): UsersRequest;
+    static deserializeBinaryFromReader(message: UsersRequest, reader: jspb.BinaryReader): UsersRequest;
+}
+
+export namespace UsersRequest {
+    export type AsObject = {
+    }
+}
+
 export class UserRequest extends jspb.Message { 
     getId(): number;
     setId(value: number): UserRequest;

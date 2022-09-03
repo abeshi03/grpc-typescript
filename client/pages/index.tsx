@@ -1,32 +1,23 @@
 import type { NextPage } from "next";
-import {useState, Fragment, ChangeEvent, useEffect} from "react";
-
-import type { UserApiResponse } from "./api/user";
-import {User} from "../codegen/protos/user_pb";
+import { Fragment } from "react";
+import { useQueryUsers } from "../apis/hooks/useApiUser";
 
 const App: NextPage = () => {
-  const [user, setUser] = useState<User.AsObject>();
+  const { data: users, error, isLoading } = useQueryUsers();
 
-  const getUsers = async () => {
-    const res = await fetch("/api/user", {
-      method: "POST",
-      body: JSON.stringify({ id: 1 }),
-    });
-
-    const { user } = await res.json();
-    setUser(user)
-  }
-
-  useEffect(() => {
-    getUsers()
-  })
+  if (isLoading) return  <p>...Loading</p>
+  if (error) return  <p>error</p>
 
   return (
-    <>
-      <p>{user?.id}</p>
-      <p>{user?.name}</p>
-      <p>{user?.isAdmin ? "admin" : "normal"}</p>
-    </>
+    <div>
+      {users.map((user) => (
+        <Fragment key={user.id}>
+          <p>{user.name}</p>
+          <p>{user.isAdmin}</p>
+          <p>--------------------</p>
+        </Fragment>
+      ))}
+    </div>
   );
 };
 
